@@ -55,7 +55,7 @@ def extract_circles_near_point_with_hough_transform(tolerance=10, distance_thres
         cv2.circle(image, point, 1, 255, -1)
     
     # blur    
-    image = cv2.GaussianBlur(image, ksize=(9,9), sigmaX=0, sigmaY=0)
+#    image = cv2.GaussianBlur(image, ksize=(9,9), sigmaX=0, sigmaY=0)
 
     # Canny
 #    med_val = np.median(image)
@@ -97,4 +97,12 @@ def extract_circles_near_point_with_hough_transform(tolerance=10, distance_thres
     subprocess.run(["xdg-open", temp_file.name])  # Linuxの場合
 
 # スクリプトを実行
-extract_circles_near_point_with_hough_transform(tolerance=5, distance_threshold=100, image_size=500, dp=1, min_dist=20, param1=100, param2=25, min_radius=30, max_radius=60)
+extract_circles_near_point_with_hough_transform(tolerance=5, \
+                                                distance_threshold=100, \
+                                                image_size=500, \
+                                                dp=1, \
+                                                min_dist=20, \
+                                                param1=100, \
+                                                param2=25, \
+                                                min_radius=30, \
+                                                max_radius=60)
