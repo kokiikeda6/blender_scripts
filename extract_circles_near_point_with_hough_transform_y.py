@@ -40,12 +40,12 @@ def extract_circles_near_point_with_hough_transform(tolerance=10, distance_thres
             point_2d = Vector((v.co.x, v.co.z))
             if (point_2d - base_point_2d).length < distance_threshold:
                 vertices_near_base.append(v.co)
-    
+
     if not vertices_near_base:
         print("No vertices found near the base point at the target height.")
         bm.free()
         return
-    
+
     # 2D座標への投影（X-Z平面）
     points_2d = [(int((v.x - base_vertex.co.x) / distance_threshold * image_size / 2 + image_size / 2), \
                   int((v.z - base_vertex.co.z) / distance_threshold * image_size / 2 + image_size / 2)) for v in vertices_near_base]
@@ -53,23 +53,23 @@ def extract_circles_near_point_with_hough_transform(tolerance=10, distance_thres
     # 空の画像を作成して、ポイントを描画
     image = np.zeros((image_size, image_size), dtype=np.uint8)
     for point in points_2d:
-        cv2.circle(image, point, 1, 255, -1)
+        cv2.circle(image, point, 3, 255, -1)
     # 選択したポイント描画
-    select_point_2d = [int(image_size / 2), int(image_size / 2)]
-    cv2.circle(image, select_point_2d, 10, 255, -1)
+#    select_point_2d = [int(image_size / 2), int(image_size / 2)]
+#    cv2.circle(image, select_point_2d, 2, 255, -1)
     
     # image 回転
-    image = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+    image = cv2.rotate(image, cv2.ROTATE_90_CLOCKWISE)
 
     # blur
 #    image = cv2.GaussianBlur(image, ksize=(9,9), sigmaX=0, sigmaY=0)
 
     # Canny
-#    med_val = np.median(image)
-#    sigma = 0.33  # 0.33
-#    min_val = int(max(0, (1.0 - sigma) * med_val))
-#    max_val = int(max(255, (1.0 + sigma) * med_val))
-#    image = cv2.Canny(image, threshold1 = min_val, threshold2 = max_val)
+    med_val = np.median(image)
+    sigma = 0.33  # 0.33
+    min_val = int(max(0, (1.0 - sigma) * med_val))
+    max_val = int(max(255, (1.0 + sigma) * med_val))
+    image = cv2.Canny(image, threshold1 = min_val, threshold2 = max_val)
 
     # ハフ変換で円を検出
     circles = cv2.HoughCircles(image, cv2.HOUGH_GRADIENT, dp=dp, minDist=min_dist, param1=param1, param2=param2, minRadius=min_radius, maxRadius=max_radius)
@@ -91,6 +91,13 @@ def extract_circles_near_point_with_hough_transform(tolerance=10, distance_thres
             #cv2.circle(image, [center_x, center_z], radius, 255, -1)
     else:
         print("No circles detected.")
+
+    # 楕円フィッティング
+    # contours,hierarchy =  cv2.findContours(image,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+    # print(contours)
+    # for i, cnt in enumerate(contours):
+    #     ellipse = cv2.fitEllipse(cnt)
+    #     print(ellipse)
 
     # 一時ファイルに画像を保存
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
