@@ -94,16 +94,6 @@ def line_detector(tolerance, distance_threshold, image_size):
     for point in points_2d:
         cv2.circle(image, point, 1, 255, -1)
 
-    # blur
-#    image = cv2.GaussianBlur(image, ksize=(9,9), sigmaX=0, sigmaY=0)
-
-    # canny
-#    med_val = np.median(image)
-#    sigma = 0.33  # 0.33
-#    min_val = int(max(0, (1.0 - sigma) * med_val))
-#    max_val = int(max(255, (1.0 + sigma) * med_val))
-#    image = cv2.Canny(image, threshold1 = min_val, threshold2 = max_val)
-
     # 円のフィッティング
     points_x = [x for x, y in points_2d]
     points_y = [y for x, y in points_2d]
