@@ -119,5 +119,5 @@ def line_detector(tolerance, distance_threshold, image_size):
     subprocess.run(["xdg-open", temp_file.name])  # Linuxの場合
 
 line_detector(tolerance=5, \
-                 distance_threshold=100, \
-                 image_size=500)
+              distance_threshold=100, \
+              image_size=500)
