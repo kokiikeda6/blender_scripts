@@ -33,7 +33,7 @@ def projected_area():
     for i in range(len(selected_vertices)):
         points.extend([(selected_vertices[i].y, selected_vertices[i].z)])
 
-    print(points)
+    #print(points)
 
     # Polygonオブジェクトを作成
     polygon = Polygon(points)
