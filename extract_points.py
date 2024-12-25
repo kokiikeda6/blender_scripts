@@ -7,6 +7,8 @@ def keep_vertices_at_same_height():
         print("No mesh object selected.")
         return
 
+    bpy.ops.object.mode_set(mode='OBJECT')
+
     # メッシュデータの準備
     mesh = obj.data
     bm = bmesh.new()
@@ -22,9 +24,9 @@ def keep_vertices_at_same_height():
     # 最初の選択頂点のx座標を基準にする
     target_x = selected_vertices[0].co.x
 
-    # 同じ高さにない頂点を削除対象にする
+    # 選択した点より後ろの点削除
     for v in bm.verts:
-        if target_x <= v.co.x:
+        if target_x - 30 >= v.co.x:
             bm.verts.remove(v)
 
     # メッシュの更新と選択反映
