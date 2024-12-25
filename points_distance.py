@@ -24,7 +24,7 @@ def points_distance():
         return
     
     # 水平方向z軸 垂直方向y軸
-    distance = abs(selected_vertices[0].co.y - selected_vertices[1].co.y)
+    distance = abs(selected_vertices[0].co.z - selected_vertices[1].co.z)
     print("distance:", distance, "[mm]")
 
 
