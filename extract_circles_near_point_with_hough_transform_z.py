@@ -97,7 +97,7 @@ def extract_circles_near_point_with_hough_transform(tolerance=10, distance_thres
     subprocess.run(["xdg-open", temp_file.name])  # Linuxの場合
 
 # スクリプトを実行
-extract_circles_near_point_with_hough_transform(tolerance=5, \
+extract_circles_near_point_with_hough_transform(tolerance=0.01, \
                                                 distance_threshold=100, \
                                                 image_size=500, \
                                                 dp=1, \
