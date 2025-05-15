@@ -99,7 +99,7 @@ def center_point_estimation(tolerance=10, distance_threshold=100, image_size=500
             # print(f"Detected Circle {i + 1}: Center = {world_center}, Radius = {world_radius}")
             # print("circle: "+str(circle))
             cv2.circle(image, [center_x, center_y], radius, 255, thickness=2)
-            cv2.putText(image, f"[{world_center_x},{world_center_y},{world_radius}]", (0, 90), cv2.FONT_HERSHEY_DUPLEX, 0.4, (255,255,255))
+            cv2.putText(image, f"[{round(world_center_x,3)},{round(world_center_y,3)}]", (0, 90), cv2.FONT_HERSHEY_DUPLEX, 0.4, (255,255,255))
             cv2.circle(image, [center_x, center_y], 1, 255, -1)
     else:
         print("No circles detected.")
