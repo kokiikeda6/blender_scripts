@@ -94,7 +94,7 @@ def obst_dist_measure(bm, world_cicle, target_z):
     for v in bm.verts:
         if abs(v.co.z - target_z) < TOLERANCE: #高さ絞る
             point_2d = Vector((v.co.x, v.co.y))
-            if (point_2d - center_point_2d).length > radius + 0.01: # 検知した円より外の点に絞る
+            if (point_2d - center_point_2d).length > radius + 0.01: # 検知した円より外の点に絞る，0.01は要調整
                 if v.co.x > center_x and v.co.y < center_y + radius and v.co.y > center_y - radius: # 円の左側に絞る
                     vertices_left_side.append(v.co)
     
@@ -137,7 +137,7 @@ def main():
     obst_dist = obst_dist_measure(bm, world_circle, target_z)
 
     cv2.putText(image, f"x= {world_circle[0]}, y= {world_circle[1]}, r= {world_circle[2]}", (0, 90), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255,255,255))
-    cv2.putText(image, f"left_obst_dist:{obst_dist}", (0, 190), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255,255,255))
+    cv2.putText(image, f"left_obst_dist= {obst_dist}", (0, 190), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255,255,255))
 
     # 一時ファイルに画像を保存
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
