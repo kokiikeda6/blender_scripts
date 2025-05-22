@@ -98,7 +98,7 @@ def obst_dist_measure(bm, world_cicle, target_z):
     for v in bm.verts:
         if abs(v.co.z - target_z) < TOLERANCE: #高さ絞る
             point_2d = Vector((v.co.x, v.co.y))
-            if (point_2d - center_point_2d).length > radius + 0.01: # 検知した円より外の点に絞る，0.01は要調整
+            if (point_2d - center_point_2d).length > radius + 0.008: # 検知した円より外の点に絞る，0.01は要調整
                 if v.co.x > center_x and v.co.y < center_y + radius and v.co.y > center_y - radius: # 円の左側に絞る
                     vertices_left.append(v.co)
                 if v.co.x < center_x and v.co.y < center_y + radius and v.co.y > center_y - radius: # 円の右側に絞る
@@ -117,6 +117,7 @@ def obst_dist_measure(bm, world_cicle, target_z):
         right_obst_dist = None
     else:
         right_obst_dist = min([abs(center_x - v.x) for v in vertices_right])
+        print([abs(center_x - v.x) for v in vertices_right]) #debug
     if not vertices_front:
         front_obst_dist = None
     else:
@@ -125,7 +126,10 @@ def obst_dist_measure(bm, world_cicle, target_z):
         behind_obst_dist = None
     else:
         behind_obst_dist = min([abs(center_y - v.y) for v in vertices_behind])
-
+    # [print(v.x) for v in vertices_right] #debug
+    # [print(v.y) for v in vertices_front] #debug
+    # print(len(vertices_right)) #debug
+    # print(len(vertices_front)) #debug
     return [left_obst_dist, right_obst_dist, front_obst_dist, behind_obst_dist]
 
 def main():

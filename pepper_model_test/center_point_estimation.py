@@ -15,11 +15,14 @@ DISTANCE_THRESHOLD = 0.05 # [m] 選択した点からどの距離までの頂点
 IMAGE_SIZE = 100
 # ハフ変換
 DP = 1.2
-MIN_DIST = 10
+MIN_DIST = 15
 PARAM1 = 50
 PARAM2 = 30
 MIN_RADIUS = 10
 MAX_RADIUS = 25
+
+# 円の半径補正
+CORRECT_PARAM = 0.008
 
 def center_point_estimation(tolerance=10, distance_threshold=100, image_size=500, dp=1.2, min_dist=20, param1=50, param2=30, min_radius=10, max_radius=100):
     obj = bpy.context.object
@@ -93,13 +96,14 @@ def center_point_estimation(tolerance=10, distance_threshold=100, image_size=500
             world_center_y = (2*center_y - image_size)*distance_threshold/image_size + base_vertex.co.y
             world_radius = 2*radius*distance_threshold/image_size
 
-            # world_center = obj.matrix_world @ Vector((center_x, center_y, target_z))
-            # world_radius = radius * obj.matrix_world.to_scale()[0]  # スケールを適用
+            correct_radius = image_size / 2 / distance_threshold * (world_radius + CORRECT_PARAM)
 
-            # print(f"Detected Circle {i + 1}: Center = {world_center}, Radius = {world_radius}")
-            # print("circle: "+str(circle))
             cv2.circle(image, [center_x, center_y], radius, 255, thickness=2)
+            cv2.circle(image, [center_x, center_y], int(correct_radius), 255, thickness=1)
+
             cv2.putText(image, f"[{round(world_center_x,3)},{round(world_center_y,3)}]", (0, 90), cv2.FONT_HERSHEY_DUPLEX, 0.4, (255,255,255))
+            # cv2.putText(image, f"[{round(radius,3)},{round(correct_radius,3)}]", (0, 90), cv2.FONT_HERSHEY_DUPLEX, 0.4, (255,255,255))
+
             cv2.circle(image, [center_x, center_y], 1, 255, -1)
     else:
         print("No circles detected.")
