@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import tempfile
 import os
 import subprocess
+import open3d
 
 ### パラメータ ###
 # 投影

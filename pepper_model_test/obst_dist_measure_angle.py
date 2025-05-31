@@ -24,7 +24,7 @@ MAX_RADIUS = 25
 
 # 障害物距離計算
 CORRECT_PARAM = 0.008 # 円の半径補正 (収穫物自身を障害物として検出することを防ぐ)
-APPROACH_ANGLE = 0 # [degree] アプローチする角度 x,yのワールド座標系
+APPROACH_ANGLE = 90 # [degree] アプローチする角度 x,yのワールド座標系
 
 def projection_to_image(bm, base_vertex, target_z, tolerance, distance_threshold, image_size):
 
