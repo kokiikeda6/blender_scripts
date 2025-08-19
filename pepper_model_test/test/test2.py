@@ -58,7 +58,7 @@ def extract_circles_near_point_with_hough_transform(tolerance=10, distance_thres
         print("No vertices found near the base point at the target height.")
         bm.free()
         return
-    
+
     # 2D座標への投影（X-y平面）
     points_2d = [(int((v.x - base_vertex.co.x) / distance_threshold * image_size / 2 + image_size / 2), int((v.y - base_vertex.co.y) / distance_threshold * image_size / 2 + image_size / 2)) for v in vertices_near_base]
 

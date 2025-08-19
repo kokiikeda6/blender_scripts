@@ -1,10 +1,8 @@
 import bpy
 import bmesh
 import sys
-sys.path.append("c:/users/hikou/appdata/roaming/python/python311/site-packages")
+sys.path.append("c:\users\hikou\appdata\roaming\python\python311\site-packages")
 import open3d as o3d
-print(o3d.__version__)
-
 import numpy as np
 import tempfile
 import os
