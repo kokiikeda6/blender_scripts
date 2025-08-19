@@ -199,6 +199,12 @@ def main():
         return
     image = projection_to_image(bm, base_vertex, target_z, tolerance=TOLERANCE, distance_threshold=0.5, image_size=1000)
     obst_dist = obst_dist_measure(bm, world_circle, target_z, approach_angle=math.radians(APPROACH_ANGLE))
+    
+    # [m] から [mm] に変換
+    obst_dist_mm = [d * 1000 for d in obst_dist]
+    print(world_circle)
+    world_circle_mm = [d * 1000 for d in world_circle]
+    print(world_circle)
 
     cv2.putText(image, f"x= {world_circle[0]}, y= {world_circle[1]}, r= {world_circle[2]}", (0, 90), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255,255,255))
     cv2.putText(image, f"left_obst_dist= {obst_dist[0]}", (0, 140), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255,255,255))
@@ -206,6 +212,11 @@ def main():
     cv2.putText(image, f"front_obst_dist= {obst_dist[2]}", (0, 240), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255,255,255))
     cv2.putText(image, f"behind_obst_dist= {obst_dist[3]}", (0, 290), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255,255,255))
 
+    print(f"x= {world_circle_mm[0]} [mm], y= {world_circle_mm[1]} [mm], r= {world_circle_mm[2]} [mm]")
+    print(f"left_obst_dist= {obst_dist_mm[0]} [mm]")
+    print(f"right_obst_dist= {obst_dist_mm[1]} [mm]")
+    print(f"front_obst_dist= {obst_dist_mm[2]} [mm]")
+    print(f"behind_obst_dist= {obst_dist_mm[3]} [mm]")
 
     # 一時ファイルに画像を保存
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".png")
