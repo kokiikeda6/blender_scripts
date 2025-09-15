@@ -26,7 +26,7 @@ def keep_vertices_at_same_height():
 
     # 選択した点より後ろの点削除
     for v in bm.verts:
-        if target_x - 30 >= v.co.x:
+        if target_x - 0.01 >= v.co.x:
             bm.verts.remove(v)
 
     # メッシュの更新と選択反映

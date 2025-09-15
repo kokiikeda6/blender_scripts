@@ -4,7 +4,7 @@ import math
 from mathutils import Vector
 
 
-ANGLE = 0
+ANGLE = 0 # Y軸上距離：0[deg]，X軸上距離：90[deg]
 
 def points_distance():
     obj = bpy.context.object
@@ -29,12 +29,13 @@ def points_distance():
         return
     
     # 水平方向z軸 垂直方向y軸
-    angle = ANGLE + 90
+    angle =math.radians(ANGLE + 90)
     dir_vec = Vector((math.cos(angle), math.sin(angle)))
     vec = Vector((selected_vertices[0].co.x - selected_vertices[1].co.x, selected_vertices[0].co.y - selected_vertices[1].co.y))
     distance = (vec.project(dir_vec)).length
-#    distance = abs(selected_vertices[0].co.z - selected_vertices[1].co.z)
-    print("distance:", distance, "[mm]")
+    distance_mm = distance*1000
+
+    print("distance:", distance_mm, "[mm]")
 
 
 points_distance()
