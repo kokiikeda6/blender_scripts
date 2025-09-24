@@ -1,5 +1,9 @@
 import bpy
 import bmesh
+import math
+from mathutils import Vector
+
+ANGLE = 0
 
 def keep_vertices_at_same_height():
     obj = bpy.context.object
@@ -21,8 +25,11 @@ def keep_vertices_at_same_height():
         bm.free()
         return
 
-    # 最初の選択頂点のx座標を基準にする
-    target_x = selected_vertices[0].co.x
+    # 最初の選択頂点を基準にする
+
+    angle =math.radians(ANGLE + 90)
+    dir_vec = Vector((math.cos(angle), math.sin(angle)))
+    vec = Vector((selected_vertices[0].co.x - v.co.x, selected_vertices[0].co.y - v.co.y))
 
     # 選択した点より後ろの点削除
     for v in bm.verts:

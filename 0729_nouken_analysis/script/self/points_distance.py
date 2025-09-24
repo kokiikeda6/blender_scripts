@@ -28,11 +28,14 @@ def points_distance():
         bm.free()
         return
     
-    # 水平方向z軸 垂直方向y軸
+    # 距離計算
     angle =math.radians(ANGLE + 90)
     dir_vec = Vector((math.cos(angle), math.sin(angle)))
     vec = Vector((selected_vertices[0].co.x - selected_vertices[1].co.x, selected_vertices[0].co.y - selected_vertices[1].co.y))
     distance = (vec.project(dir_vec)).length
+#    distance = abs(selected_vertices[0].co.z - selected_vertices[1].co.z) # Z軸方向を計測
+
+
     distance_mm = distance*1000
 
     print("distance:", distance_mm, "[mm]")
