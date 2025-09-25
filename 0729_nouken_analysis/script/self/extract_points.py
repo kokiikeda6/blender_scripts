@@ -9,7 +9,7 @@ SCRIPT_PATH = "c:/Users/hikou/OneDrive/ドキュメント/Blender/blender_script
 
 def main():
 
-    mode_select(select_mode="object")
+    select_blender_mode(select_mode="object")
 
     # メッシュデータの準備
     obj = bpy.context.object
@@ -49,9 +49,10 @@ def main():
 
     # スクリプトを開く
     open_script(script_path=SCRIPT_PATH)
-    mode_select(select_mode="edit")
+    select_blender_mode(select_mode="edit")
 
 def set_camera(selected_vertices):
+
     # カメラを作成
     camera_data = bpy.data.cameras.new(name="Target_Camera")
     camera_object = bpy.data.objects.new("Target_Camera", camera_data)
@@ -75,7 +76,6 @@ def set_camera(selected_vertices):
     angle_rad = math.radians(ANGLE)
     
     # カメラの位置を計算
-    # X座標は0、Y座標は角度、Z座標は距離で計算
     x_pos = DISTANCE * math.cos(angle_rad)
     y_pos = DISTANCE * math.sin(angle_rad)
     z_pos = 0
@@ -100,7 +100,7 @@ def open_script(script_path):
     bpy.ops.text.open(filepath=script_path)
     return
 
-def mode_select(select_mode):
+def select_blender_mode(select_mode):
     # メッシュタイプのオブジェクトのみ選択
     for obj in bpy.context.scene.objects:
         if obj.type == 'MESH':
