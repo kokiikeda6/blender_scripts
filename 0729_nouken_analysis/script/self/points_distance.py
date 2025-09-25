@@ -27,6 +27,7 @@ def main():
     
     if not len(selected_vertices) == 2:
         print("Please select two points.")
+        select_blender_mode(select_mode="edit")
         bm.free()
         return
     
