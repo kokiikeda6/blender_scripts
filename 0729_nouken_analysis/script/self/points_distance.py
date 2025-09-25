@@ -33,7 +33,7 @@ def points_distance():
     dir_vec = Vector((math.cos(angle), math.sin(angle)))
     vec = Vector((selected_vertices[0].co.x - selected_vertices[1].co.x, selected_vertices[0].co.y - selected_vertices[1].co.y))
     distance = (vec.project(dir_vec)).length
-#    distance = abs(selected_vertices[0].co.z - selected_vertices[1].co.z) # Z軸方向を計測
+#    distance = abs(selected_vertices[0].co.z - selected_vertices[1].co.z) # Z軸方向を計測する場合はコメントアウト外す
 
 
     distance_mm = distance*1000
